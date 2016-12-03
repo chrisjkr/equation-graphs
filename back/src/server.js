@@ -33,12 +33,8 @@ const log = bunyan.createLogger({
 
 const port = process.env.PORT || 3000
 
-// Express config
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-
 // Database
-const mongouri = process.env.MONGOURI || 'mongodb://localhost/example'
+const mongouri = process.env.MONGOURI || 'mongodb://localhost/ezpz'
 mongoose.connect(mongouri)
 const db = mongoose.connection
 db.on('error', (err) => {
