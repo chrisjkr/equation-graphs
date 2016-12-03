@@ -14,21 +14,27 @@ socket.on('linearResponse', function (data) {
   console.log(data)
 })
 
-socket.emit('quadratic', {
-  a: 1,
-  b: 10,
-  c: 3
+document.getElementById('quadraticButton').addEventListener('click', function () {
+  let data = {
+    a: Number(document.getElementById('quadraticA').value),
+    b: Number(document.getElementById('quadraticB').value),
+    c: Number(document.getElementById('quadraticC').value)
+  }
+  socket.emit('quadratic', data)
 })
 
 socket.on('quadraticResponse', function (data) {
   console.log(data)
 })
 
-socket.emit('cubic', {
-  a: 1,
-  b: -4,
-  c: 1,
-  d: 6
+document.getElementById('cubicButton').addEventListener('click', function () {
+  let data = {
+    a: Number(document.getElementById('cubicA').value),
+    b: Number(document.getElementById('cubicB').value),
+    c: Number(document.getElementById('cubicC').value),
+    d: Number(document.getElementById('cubicD').value)
+  }
+  socket.emit('cubic', data)
 })
 
 socket.on('cubicResponse', function (data) {
