@@ -5,9 +5,13 @@ import bunyan from 'bunyan'
 import http from 'http'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
+import socket from 'socket.io'
+import Functions from './modules/functions'
 
 const app = express()
 const server = http.Server(app)
+const io = socket(server)
+
 const log = bunyan.createLogger({
   name: 'example',
   src: true,
@@ -52,4 +56,7 @@ app.use('/', require('./components/example/example.routes.js').default)
 
 server.listen(port, () => {
   log.info(`App running on localhost:${port}`)
+  new Functions()
 })
+
+export {log, io}
