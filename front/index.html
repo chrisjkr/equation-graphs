@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ezpz</title>
-    <link rel="stylesheet" href="//cdn.rawgit.com/krszwsk/hyp/master/dist/hyp.min.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/krszwsk/hyp/v0.0.10/dist/hyp.min.css">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
                             a:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="linearA" type="number" value="0">
                         </div>
                     </div>
                     <div class="row">
@@ -25,15 +25,15 @@
                             b:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="linearB" type="number" value=0>
                         </div>
                     </div>
                     <div class="row-center">
-                        <button class="btn-light">solve</button>
+                        <button id="linearButton" class="btn-light stretch">solve</button>
                     </div>
                 </div>
                 <div class="c-8">
-                    
+                    <div id="linear"></div>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                             a:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="quadraticA" type="number" value=0>
                         </div>
                     </div>
                     <div class="row">
@@ -55,7 +55,7 @@
                             b:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="quadraticB" type="number" value=0>
                         </div>
                     </div>
                     <div class="row">
@@ -63,15 +63,15 @@
                             c:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="quadraticC" type="number" value=0>
                         </div>
                     </div>
                     <div class="row-center">
-                        <button class="btn-light">solve</button>
+                        <button id="quadraticButton" class="btn-light stretch">solve</button>
                     </div>
                 </div>
                 <div class="c-8">
-
+                    <div id="quadratic"></div>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                             a:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="cubicA" type="number" value=0>
                         </div>
                     </div>
                     <div class="row">
@@ -93,7 +93,7 @@
                             b:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="cubicB" type="number" value=0>
                         </div>
                     </div>
                     <div class="row">
@@ -101,7 +101,7 @@
                             c:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="cubicC" type="number" value=0>
                         </div>
                     </div>
                     <div class="row">
@@ -109,20 +109,22 @@
                             d:
                         </div>
                         <div class="c-10">
-                            <input type="number">
+                            <input id="cubicD" type="number" value=0>
                         </div>
                     </div>
                     <div class="row-center">
-                        <button class="btn-light">solve</button>
+                        <button id="cubicButton" class="btn-light stretch">solve</button>
                     </div>
                 </div>
                 <div class="c-8">
-
+                    <div id="cubic"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://wzrd.in/standalone/function-plot@1.17.3"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script src="index.js"></script>
 </body>

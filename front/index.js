@@ -1,8 +1,13 @@
+/* global io, functionPlot */
+
 var socket = io('http://localhost:3000')
 
-socket.emit('linear', {
-  a: 1,
-  b: 30
+document.getElementById('linearButton').addEventListener('click', function () {
+  let data = {
+    a: Number(document.getElementById('linearA').value),
+    b: Number(document.getElementById('linearB').value)
+  }
+  socket.emit('linear', data)
 })
 
 socket.on('linearResponse', function (data) {
