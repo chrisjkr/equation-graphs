@@ -43,7 +43,7 @@ export default class Functions {
     const b = data.b ? data.b : 0
     const c = data.c ? data.c : 0
 
-    if (!a) that.linear({
+    if (!a) return that.linear({
       a: b,
       b: c
     })
@@ -76,7 +76,7 @@ export default class Functions {
     let c = data.c ? data.c : 0
     let d = data.d ? data.d : 0
 
-    if (!a) that.quadratic({
+    if (!a) return that.quadratic({
       a: b,
       b: c,
       c: d
