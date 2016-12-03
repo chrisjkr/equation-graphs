@@ -6,6 +6,10 @@ export default class Functions {
     io.on('connection', (socket) => {
       log.info('User connected.')
 
+      socket.on('linear', function (data) {
+        socket.emit('linearResponse', that.linear(data))
+      })
+
       socket.on('quadratic', function (data) {
         socket.emit('quadraticResponse', that.quadratic(data))
       })
@@ -26,7 +30,11 @@ export default class Functions {
 
     if (!a) return false
 
-    return -b / a
+    return {
+      a: a,
+      b: b,
+      x: -b / a
+    }
   }
 
   quadratic (data) {
@@ -43,11 +51,19 @@ export default class Functions {
     let delta = Math.pow(b, 2) - 4 * a * c
     if (delta > 0) {
       return {
+        a: a,
+        b: b,
+        c: c,
         x1: (-b - Math.sqrt(delta)) / (2 * a),
         x2: (-b + Math.sqrt(delta)) / (2 * a)
       }
     } else if (delta === 0) {
-      return -b / (2 * a)
+      return {
+        a: a,
+        b: b,
+        c: c,
+        x: -b / (2 * a)
+      }
     }
 
     return false
@@ -95,12 +111,26 @@ export default class Functions {
       roots[i] -= b/(3*a)
 
 
-    if (roots.length === 1) return roots[0]
+    if (roots.length === 1) return {
+      a: a,
+      b: b,
+      c: c,
+      d: d,
+      x: roots[0]
+    }
     if (roots.length === 2)return {
+        a: a,
+        b: b,
+        c: c,
+        d: d,
         x1: roots[0],
         x2: roots[1]
       }
     if (roots.length === 3) return {
+      a: a,
+      b: b,
+      c: c,
+      d: d,
       x1: roots[0],
       x2: roots[1],
       x3: roots[2],
