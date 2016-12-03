@@ -12,13 +12,6 @@ document.getElementById('linearButton').addEventListener('click', function () {
 
 socket.on('linearResponse', function (data) {
   console.log(data)
-
-  functionPlot({
-    target: '#linear',
-    data: [{
-      fn: 'x^2'
-    }]
-  })
 })
 
 document.getElementById('quadraticButton').addEventListener('click', function () {
