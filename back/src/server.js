@@ -51,9 +51,6 @@ db.once('open', () => {
 // Models
 global.ExampleM = require('./models/example')
 
-// Routes
-app.use('/', require('./components/example/example.routes.js').default)
-
 server.listen(port, () => {
   log.info(`App running on localhost:${port}`)
   new Functions()
