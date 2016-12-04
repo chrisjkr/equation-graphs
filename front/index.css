@@ -3,6 +3,21 @@ body {
     color: white;
 }
 
+.plot {
+    width: 500px;
+    height: 400px;
+}
+
 .section {
     margin-top: 50px;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.axis {
+    stroke: white;
 }

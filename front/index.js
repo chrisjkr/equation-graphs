@@ -8,9 +8,13 @@ document.getElementById('linearButton').addEventListener('click', function () {
     b: Number(document.getElementById('linearB').value)
   }
   socket.emit('linear', data)
+})
+
+socket.on('linearResponse', function (data) {
+  console.log(data)
 
   var dataset = []
-  for (var x = 1; x <= 100; x++) {
+  for (var x = -500; x <= 500; x++) {
     dataset.push({
       x: x,
       y: data.a * x + data.b
@@ -18,18 +22,17 @@ document.getElementById('linearButton').addEventListener('click', function () {
   }
   console.log(dataset)
 
+  d3.select('#linear').selectAll('svg').remove()
+
   var svg = d3.select('#linear')
     .append('svg')
-    .attr('width', 400)
-    .attr('height', 300)
+    .attr('width', 500)
+    .attr('height', 400)
 
-  var margin = {top: 20, right: 20, bottom: 20, left: 20}
+  var margin = {top: 20, right: 20, bottom: 30, left: 80}
   var w = +svg.attr('width') - margin.left - margin.right
   var h = +svg.attr('height') - margin.top - margin.bottom
-  var g = svg.append('g').attr({
-    transform: 'translate(' + margin.left + ',' + margin.top + ')',
-    border: '1px solid black'
-  })
+  var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
   var x = d3.scaleLinear()
     .rangeRound([0, w])
@@ -45,28 +48,30 @@ document.getElementById('linearButton').addEventListener('click', function () {
 
   g.append('g')
     .attr('class', 'axis axis--x')
-    .attr('transform', 'translate(0,' + height + ')')
+    .attr('transform', 'translate(0 ,' + h + ')')
     .call(d3.axisBottom(x))
+    .append('text')
+    .attr('fill', '#fff')
+    .attr('y', 6)
+    .attr('dy', '0.71em')
+    .style('text-anchor', 'end')
+    .text('X')
 
   g.append('g')
     .attr('class', 'axis axis--y')
     .call(d3.axisLeft(y))
     .append('text')
-    .attr('fill', '#000')
+    .attr('fill', '#fff')
     .attr('transform', 'rotate(-90)')
     .attr('y', 6)
     .attr('dy', '0.71em')
     .style('text-anchor', 'end')
-    .text('Price ($)')
+    .text('Y')
 
   g.append('path')
-    .datum(data)
+    .datum(dataset)
     .attr('class', 'line')
     .attr('d', line)
-})
-
-socket.on('linearResponse', function (data) {
-  console.log(data)
 })
 
 document.getElementById('quadraticButton').addEventListener('click', function () {
