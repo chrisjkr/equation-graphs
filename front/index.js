@@ -220,3 +220,8 @@ socket.on('cubicResponse', function (data) {
     .attr('class', 'line')
     .attr('d', line)
 })
+
+socket.emit('history')
+socket.on('historyResponse', function (funcHistory) {
+  console.log(funcHistory)
+})

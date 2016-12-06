@@ -3,19 +3,53 @@ import {log, io} from '../server'
 export default class Functions {
   constructor () {
     let that = this
+    this.funcHistory = []
     io.on('connection', (socket) => {
       log.info('User connected.')
 
+      that.refresh(function (err) {
+        if (err) log.error(err)
+        socket.emit('historyResponse', that.funcHistory)
+      })
+
+      socket.on('history', function () {
+        that.refresh(function (err) {
+          if (err) log.error(err)
+          socket.emit('historyResponse', that.funcHistory)
+        })
+      })
+
       socket.on('linear', function (data) {
-        socket.emit('linearResponse', that.linear(data))
+        data = that.linear(data)
+        socket.emit('linearResponse', data)
+        that.save(data, 'linear', function (err, func) {
+          if (err) log.error(err)
+          that.refresh(() => {
+            socket.emit('historyResponse', that.funcHistory)
+          })
+        })
       })
 
       socket.on('quadratic', function (data) {
-        socket.emit('quadraticResponse', that.quadratic(data))
+        data = that.quadratic(data)
+        socket.emit('quadraticResponse', data)
+        that.save(data, 'quadratic', function (err, func) {
+          if (err) log.error(err)
+          that.refresh(() => {
+            socket.emit('historyResponse', that.funcHistory)
+          })
+        })
       })
 
       socket.on('cubic', function (data) {
-        socket.emit('cubicResponse', that.cubic(data))
+        data = that.cubic(data)
+        socket.emit('cubicResponse', data)
+        that.save(data, 'cubic', function (err, func) {
+          if (err) log.error(err)
+          that.refresh(() => {
+            socket.emit('historyResponse', that.funcHistory)
+          })
+        })
       })
 
       socket.on('disconnect', function () {
@@ -54,7 +88,7 @@ export default class Functions {
         a: a,
         b: b,
         c: c,
-        x1: (-b - Math.sqrt(delta)) / (2 * a),
+        x: (-b - Math.sqrt(delta)) / (2 * a),
         x2: (-b + Math.sqrt(delta)) / (2 * a)
       }
     } else if (delta === 0) {
@@ -123,7 +157,7 @@ export default class Functions {
         b: b,
         c: c,
         d: d,
-        x1: roots[0],
+        x: roots[0],
         x2: roots[1]
       }
     if (roots.length === 3) return {
@@ -131,7 +165,7 @@ export default class Functions {
       b: b,
       c: c,
       d: d,
-      x1: roots[0],
+      x: roots[0],
       x2: roots[1],
       x3: roots[2],
     }
@@ -140,5 +174,38 @@ export default class Functions {
       var y = Math.pow(Math.abs(x), 1/3)
       return x < 0 ? -y : y
     }
+  }
+
+  save (data, type, done) {
+    let hasRoots = !(!data.x && !data.x2 && !data.x3)
+    let func = new MFunction({
+      type: type,
+      a: data.a ? data.a : 0,
+      b: data.b ? data.b : 0,
+      c: data.c ? data.c : 0,
+      d: data.d ? data.d : 0,
+      hasRoots: hasRoots,
+      x: data.x ? data.x : null,
+      x2: data.x2 ? data.x2 : null,
+      x3: data.x3 ? data.x3 : null
+    })
+    func.save(function (err) {
+      if (err) return done(err)
+
+      return done(null, func)
+    })
+  }
+
+  refresh (done) {
+    let that = this
+    MFunction.find({}, function (err, functions) {
+      if (err) return done(err)
+
+      if (functions.length < 1) return done({
+        msg: 'No data'
+      })
+
+      return done(that.funcHistory = functions)
+    })
   }
 }
