@@ -33,6 +33,12 @@ document.getElementById('quadraticButton').addEventListener('click', function ()
 socket.on('quadraticResponse', function (data) {
   console.log(data)
 
+  functionPlot({
+    target: '#quadratic',
+    data: [{
+      fn: data.a + 'x^2 + ' + data.b + 'x + ' + data.c
+    }]
+  })
 })
 
 document.getElementById('cubicButton').addEventListener('click', function () {
@@ -48,6 +54,12 @@ document.getElementById('cubicButton').addEventListener('click', function () {
 socket.on('cubicResponse', function (data) {
   console.log(data)
 
+  functionPlot({
+    target: '#cubic',
+    data: [{
+      fn: data.a + 'x^3 + ' + data.b + 'x^2 + ' + data.c + 'x + ' + data.d
+    }]
+  })
 })
 
 socket.emit('history')
