@@ -33,15 +33,6 @@ document.getElementById('quadraticButton').addEventListener('click', function ()
 socket.on('quadraticResponse', function (data) {
   console.log(data)
 
-  var dataset = []
-  for (var x = -500; x <= 500; x++) {
-    dataset.push({
-      x: x,
-      y: data.a * Math.pow(x, 2) + data.b * x + data.c
-    })
-  }
-  console.log(dataset)
-
 })
 
 document.getElementById('cubicButton').addEventListener('click', function () {
@@ -57,13 +48,9 @@ document.getElementById('cubicButton').addEventListener('click', function () {
 socket.on('cubicResponse', function (data) {
   console.log(data)
 
-  var dataset = []
-  for (var x = -500; x <= 500; x++) {
-    dataset.push({
-      x: x,
-      y: data.a * Math.pow(x, 3) + data.b * Math.pow(x, 2) + data.c * x + data.d
-    })
-  }
-  console.log(dataset)
+})
 
+socket.emit('history')
+socket.on('historyResponse', function (funcHistory) {
+  console.log(funcHistory)
 })

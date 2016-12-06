@@ -45,7 +45,7 @@ db.once('open', () => {
 })
 
 // Models
-global.ExampleM = require('./models/example')
+global.MFunction = require('./models/function').default
 
 server.listen(port, () => {
   log.info(`App running on localhost:${port}`)

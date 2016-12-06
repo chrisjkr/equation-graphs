@@ -9,7 +9,7 @@ describe('Example component tests: ', function () {
                 send: sinon.spy()
             }
             
-            let Example = require('./example/example.js')
+            let Example = require('./example/function.js')
             Example = new Example()
             
             Example.status(null, res)
