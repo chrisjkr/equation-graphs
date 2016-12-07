@@ -72,7 +72,10 @@ socket.on('cubicResponse', function (data) {
 })
 
 socket.emit('history')
-socket.on('historyResponse', function (funcHistory) {
+socket.on('historyResponse', updateHistory)
+socket.on('historyUpdate', updateHistory)
+
+function updateHistory (funcHistory) {
   console.log(funcHistory)
 
   var tableBody = ''
@@ -91,7 +94,7 @@ socket.on('historyResponse', function (funcHistory) {
   })
 
   document.getElementById('functionHistory').innerHTML = tableBody
-})
+}
 
 function humanizeDate (date) {
   date = new Date(date)

@@ -26,6 +26,7 @@ export default class Functions {
           if (err) log.error(err)
           that.refresh(() => {
             socket.emit('historyResponse', that.funcHistory)
+            io.emit('historyUpdate', that.funcHistory)
           })
         })
       })
@@ -37,6 +38,7 @@ export default class Functions {
           if (err) log.error(err)
           that.refresh(() => {
             socket.emit('historyResponse', that.funcHistory)
+            io.emit('historyUpdate', that.funcHistory)
           })
         })
       })
@@ -48,6 +50,7 @@ export default class Functions {
           if (err) log.error(err)
           that.refresh(() => {
             socket.emit('historyResponse', that.funcHistory)
+            io.emit('historyUpdate', that.funcHistory)
           })
         })
       })
