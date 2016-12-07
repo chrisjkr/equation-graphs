@@ -13,6 +13,8 @@ document.getElementById('linearButton').addEventListener('click', function () {
 socket.on('linearResponse', function (data) {
   console.log(data)
 
+  document.getElementById('linearX').innerHTML = '<p>x: ' + data.x + '</p>'
+
   functionPlot({
     target: '#linear',
     data: [{
@@ -32,6 +34,9 @@ document.getElementById('quadraticButton').addEventListener('click', function ()
 
 socket.on('quadraticResponse', function (data) {
   console.log(data)
+
+  document.getElementById('quadraticX').innerHTML = '<p>x: ' + data.x + '</p>'
+  document.getElementById('quadraticX2').innerHTML = '<p>x2: ' + data.x2 + '</p>'
 
   functionPlot({
     target: '#quadratic',
@@ -53,6 +58,10 @@ document.getElementById('cubicButton').addEventListener('click', function () {
 
 socket.on('cubicResponse', function (data) {
   console.log(data)
+
+  document.getElementById('cubicX').innerHTML = '<p>x: ' + data.x + '</p>'
+  document.getElementById('cubicX2').innerHTML = '<p>x2: ' + data.x2 + '</p>'
+  document.getElementById('cubicX3').innerHTML = '<p>x3: ' + data.x3 + '</p>'
 
   functionPlot({
     target: '#cubic',
