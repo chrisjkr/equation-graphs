@@ -177,7 +177,7 @@ export default class Functions {
   }
 
   save (data, type, done) {
-    let hasRoots = !(!data.x && !data.x2 && !data.x3)
+    let hasRoots = !(typeof data.x === 'number' && typeof data.x2 === 'number' && typeof data.x3 === 'number')
     let func = new MFunction({
       type: type,
       a: data.a ? data.a : 0,
@@ -185,9 +185,9 @@ export default class Functions {
       c: data.c ? data.c : 0,
       d: data.d ? data.d : 0,
       hasRoots: hasRoots,
-      x: data.x ? data.x : null,
-      x2: data.x2 ? data.x2 : null,
-      x3: data.x3 ? data.x3 : null
+      x: typeof data.x === 'number' ? data.x : null,
+      x2: typeof data.x2 === 'number' ? data.x2 : null,
+      x3: typeof data.x3 === 'number' ? data.x3 : null
     })
     func.save(function (err) {
       if (err) return done(err)
@@ -198,7 +198,7 @@ export default class Functions {
 
   refresh (done) {
     let that = this
-    MFunction.find({}, function (err, functions) {
+    MFunction.find({}).sort({ timestamp: -1 }).exec(function (err, functions) {
       if (err) return done(err)
 
       if (functions.length < 1) return done({

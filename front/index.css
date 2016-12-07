@@ -23,3 +23,34 @@ body {
     -moz-box-shadow:  0 0 10px rgba(0, 0, 0, 0.6);
     box-shadow:  0 0 10px rgba(0, 0, 0, 0.6);
 }
+
+.history {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+table {
+    max-height: 100%;
+    width: 100%;
+    border: 7px solid #2a2a2a;
+    border-radius: 5px;
+    border-collapse: collapse;
+    text-align: center;
+    vertical-align: center;
+}
+
+
+th {
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #2a2a2a;
+    margin: 0;
+}
+
+td {
+    border: 1px solid #2a2a2a;
+    border-top: 2px solid #2a2a2a;
+    margin: 0;
+    padding: 5px;
+}

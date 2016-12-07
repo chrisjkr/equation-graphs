@@ -65,4 +65,49 @@ socket.on('cubicResponse', function (data) {
 socket.emit('history')
 socket.on('historyResponse', function (funcHistory) {
   console.log(funcHistory)
+
+  var tableBody = ''
+  funcHistory.forEach(function (func) {
+    var hasRoots = func.hasRoots ? 'yes' : 'no'
+    tableBody += '<tr></tr><td>' + humanizeDate(func.timestamp) + '</td>' +
+      '<td>' + func.type + '</td>' +
+      '<td>' + hasRoots + '</td>' +
+      '<td>' + func.a + '</td>' +
+      '<td>' + func.b + '</td>' +
+      '<td>' + func.c + '</td>' +
+      '<td>' + func.d + '</td>' +
+      '<td>' + func.x + '</td>' +
+      '<td>' + func.x2 + '</td>' +
+      '<td>' + func.x3 + '</td></tr>'
+  })
+
+  document.getElementById('functionHistory').innerHTML = tableBody
 })
+
+function humanizeDate (date) {
+  date = new Date(date)
+  var elapsed = Math.round((+new Date - date.getTime()) / 1000)
+
+  var minute = 60
+  var hour = minute * 60
+  var day = hour * 24
+  var month = day * 30
+  var year = month * 12
+
+  if (elapsed < 60) return 'Just now.'
+  else if (elapsed < 2 * minute) return 'A minute ago'
+  else if (elapsed < hour) return Math.floor(elapsed / minute) + ' minutes ago'
+  else if (elapsed < 24 * hour) {
+    elapsed = Math.floor(elapsed / hour)
+    if (elapsed === 1) return elapsed + ' hour ago'
+    else return elapsed + ' hours ago'
+  }
+  else if (elapsed < month) return Math.floor(elapsed / day) + ' days ago'
+  else if (elapsed < year) return Math.floor(elapsed / month) + ' months ago'
+  else if (elapsed >= year) {
+    elapsed = Math.floor(elapsed / year)
+    if (elapsed === 1) return 'A year ago'
+    else return elapsed + ' years ago'
+  }
+  else return false
+}
