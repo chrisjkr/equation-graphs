@@ -34,7 +34,7 @@ const log = bunyan.createLogger({
 const port = process.env.PORT || 3000
 
 // Database
-const mongouri = process.env.MONGOURI || 'mongodb://localhost/ezpz'
+const mongouri = process.env.MONGOURI || 'mongodb://localhost/equation-graphs'
 mongoose.connect(mongouri)
 const db = mongoose.connection
 db.on('error', (err) => {
@@ -49,7 +49,7 @@ global.MFunction = require('./models/function').default
 
 server.listen(port, () => {
   log.info(`App running on localhost:${port}`)
-  new Functions()
+  new Functions() // Call imported Function module
 })
 
 export {log, io}
